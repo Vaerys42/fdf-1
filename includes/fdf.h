@@ -6,7 +6,7 @@
 /*   By: ycribier <ycribier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/17 19:02:51 by ycribier          #+#    #+#             */
-/*   Updated: 2013/12/22 22:35:53 by ycribier         ###   ########.fr       */
+/*   Updated: 2013/12/22 22:40:13 by ycribier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,6 @@ typedef struct	s_vertex
 	int				y;
 	int				z;
 }				t_vertex;
-
-typedef struct	s_fdf
-{
-	t_env		e;
-	int			fd;
-}				t_fdf;
 
 int		set_color(int iter, t_vertex *pt1, t_vertex *pt2);
 void	my_pixel_put_to_image(t_img *img, int x, int y, int color);
