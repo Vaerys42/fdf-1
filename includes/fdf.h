@@ -6,7 +6,7 @@
 /*   By: ycribier <ycribier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/17 19:02:51 by ycribier          #+#    #+#             */
-/*   Updated: 2013/12/22 20:22:05 by ycribier         ###   ########.fr       */
+/*   Updated: 2013/12/22 22:35:53 by ycribier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ typedef struct	s_env
 {
 	void		*mlx;
 	void		*win;
+	void		*img;
 }				t_env;
 
 typedef struct	s_img
@@ -60,15 +61,15 @@ void	create_projection(t_img *img, int l, int c, t_vertex (*vtx_tab)[l][c]);
 void	convert_to_parallel(int l, int c, t_vertex (*vtx_tab)[l][c]);
 void	fill_empty_vtx(int i, int j, int c, t_vertex (*vtx_tab)[][c]);
 void	create_vtx_tab(t_list *list, int l, int c, t_vertex (*vtx_tab)[l][c]);
-void	manage_vtx_tab(t_env e, t_list *list, int nb_line, int nb_col);
+void	manage_vtx_tab(t_env *e, t_list *list, int nb_line, int nb_col);
 
 int		get_ltab_size(char **tab);
 void	clean_line(char *line);
 void	check_list(t_list *list, int *nb_col);
 void	delete_list(t_list **alst);
-void	fdf(int fd, t_env e);
+void	fdf(int fd, t_env *e);
 
-void	print_error(char *message);
+int		expose_hook(t_env *e);
 int		key_hook(int keycode, void *param);
 t_img	*create_new_image(t_env *e, int width, int height);
 int		set_env(t_env *env);

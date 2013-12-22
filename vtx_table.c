@@ -6,7 +6,7 @@
 /*   By: ycribier <ycribier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/22 14:48:06 by ycribier          #+#    #+#             */
-/*   Updated: 2013/12/22 20:21:39 by ycribier         ###   ########.fr       */
+/*   Updated: 2013/12/22 22:28:14 by ycribier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,14 +103,13 @@ void	create_vtx_tab(t_list *list, int l, int c, t_vertex (*vtx_tab)[l][c])
 	}
 }
 
-void	manage_vtx_tab(t_env e, t_list *list, int nb_line, int nb_col)
+void	manage_vtx_tab(t_env *e, t_list *list, int nb_line, int nb_col)
 {
 	t_img		*img;
 	t_vertex	vtx_tab[nb_line][nb_col];
 
-	img = create_new_image(&e, W_WIDTH, W_HEIGHT);
+	img = create_new_image(e, W_WIDTH, W_HEIGHT);
 	create_vtx_tab(list, nb_line, nb_col, &vtx_tab);
 	convert_to_parallel(nb_line, nb_col, &vtx_tab);
 	create_projection(img, nb_line, nb_col, &vtx_tab);
-	mlx_put_image_to_window(e.mlx, e.win, img->id, 0, 0);
 }

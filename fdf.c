@@ -6,13 +6,13 @@
 /*   By: ycribier <ycribier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/18 18:48:12 by ycribier          #+#    #+#             */
-/*   Updated: 2013/12/22 20:04:44 by ycribier         ###   ########.fr       */
+/*   Updated: 2013/12/22 22:31:19 by ycribier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include "libft.h"
 #include "fdf.h"
+#include "libft.h"
 
 int		get_ltab_size(char **tab)
 {
@@ -78,7 +78,7 @@ void	delete_list(t_list **alst)
 	}
 }
 
-void	fdf(int fd, t_env e)
+void	fdf(int fd, t_env *e)
 {
 	char	*line;
 	t_list	*list;
