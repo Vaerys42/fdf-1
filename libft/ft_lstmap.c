@@ -6,12 +6,12 @@
 /*   By: ycribier <ycribier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/11/29 18:11:18 by ycribier          #+#    #+#             */
-/*   Updated: 2013/12/01 14:33:25 by ycribier         ###   ########.fr       */
+/*   Updated: 2013/12/29 20:29:51 by ycribier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include <stdlib.h>
+#include "libft.h"
 
 t_list	*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem))
 {

@@ -6,15 +6,14 @@
 /*   By: ycribier <ycribier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/22 14:48:06 by ycribier          #+#    #+#             */
-/*   Updated: 2013/12/22 22:28:14 by ycribier         ###   ########.fr       */
+/*   Updated: 2015/02/11 18:23:05 by ycribier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <mlx.h>
 #include "fdf.h"
-#include "libft.h"
 
-void	create_projection(t_img *img, int l, int c, t_vertex (*vtx_tab)[l][c])
+static void
+	create_projection(t_env *e, int l, int c, t_vertex (*vtx_tab)[l][c])
 {
 	int			i;
 	int			j;
@@ -28,9 +27,9 @@ void	create_projection(t_img *img, int l, int c, t_vertex (*vtx_tab)[l][c])
 			if (((*vtx_tab)[j][i]).is_vtx == 1)
 			{
 				if (i < (c - 1) && ((*vtx_tab)[j][i + 1]).is_vtx == 1)
-					draw_line(&(*vtx_tab)[j][i], &(*vtx_tab)[j][i + 1], img);
+					draw_line(&(*vtx_tab)[j][i], &(*vtx_tab)[j][i + 1], e);
 				if (j < (l - 1) && ((*vtx_tab)[j + 1][i]).is_vtx == 1)
-					draw_line(&(*vtx_tab)[j][i], &(*vtx_tab)[j + 1][i], img);
+					draw_line(&(*vtx_tab)[j][i], &(*vtx_tab)[j + 1][i], e);
 			}
 			i++;
 		}
@@ -38,7 +37,8 @@ void	create_projection(t_img *img, int l, int c, t_vertex (*vtx_tab)[l][c])
 	}
 }
 
-void	convert_to_parallel(int l, int c, t_vertex (*vtx_tab)[l][c])
+static void
+	convert_to_parallel(int l, int c, t_vertex (*vtx_tab)[l][c])
 {
 	int		i;
 	int		j;
@@ -65,7 +65,8 @@ void	convert_to_parallel(int l, int c, t_vertex (*vtx_tab)[l][c])
 	}
 }
 
-void	fill_empty_vtx(int i, int j, int c, t_vertex (*vtx_tab)[][c])
+static void
+	fill_empty_vtx(int i, int j, int c, t_vertex (*vtx_tab)[][c])
 {
 	while (i < c)
 	{
@@ -74,7 +75,8 @@ void	fill_empty_vtx(int i, int j, int c, t_vertex (*vtx_tab)[][c])
 	}
 }
 
-void	create_vtx_tab(t_list *list, int l, int c, t_vertex (*vtx_tab)[l][c])
+static void
+	create_vtx_tab(t_list *list, int l, int c, t_vertex (*vtx_tab)[l][c], t_env *e)
 {
 	char		*line;
 	char		**tab;
@@ -94,6 +96,7 @@ void	create_vtx_tab(t_list *list, int l, int c, t_vertex (*vtx_tab)[l][c])
 			((*vtx_tab)[j][i]).x = i;
 			((*vtx_tab)[j][i]).y = j;
 			((*vtx_tab)[j][i]).z = ft_atoi(*tab);
+			e->max_elev = fmax(e->max_elev, ft_abs(((*vtx_tab)[j][i]).z));
 			tab++;
 			i++;
 		}
@@ -103,13 +106,14 @@ void	create_vtx_tab(t_list *list, int l, int c, t_vertex (*vtx_tab)[l][c])
 	}
 }
 
-void	manage_vtx_tab(t_env *e, t_list *list, int nb_line, int nb_col)
+void
+	manage_vtx_tab(t_env *e, t_list *list, int nb_line, int nb_col)
 {
-	t_img		*img;
 	t_vertex	vtx_tab[nb_line][nb_col];
 
-	img = create_new_image(e, W_WIDTH, W_HEIGHT);
-	create_vtx_tab(list, nb_line, nb_col, &vtx_tab);
+	e->img = create_new_image(e, W_WIDTH, W_HEIGHT);
+	create_vtx_tab(list, nb_line, nb_col, &vtx_tab, e);
 	convert_to_parallel(nb_line, nb_col, &vtx_tab);
-	create_projection(img, nb_line, nb_col, &vtx_tab);
+	printf("max_elev: %d\n", e->max_elev);
+	create_projection(e, nb_line, nb_col, &vtx_tab);
 }

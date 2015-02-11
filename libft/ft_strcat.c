@@ -6,12 +6,12 @@
 /*   By: ycribier <ycribier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/11/22 11:02:16 by ycribier          #+#    #+#             */
-/*   Updated: 2013/11/22 11:02:30 by ycribier         ###   ########.fr       */
+/*   Updated: 2015/01/28 13:16:41 by ycribier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include <string.h>
+#include "libft.h"
 
 char	*ft_strcat(char *dest, char const *src)
 {

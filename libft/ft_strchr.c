@@ -6,7 +6,7 @@
 /*   By: ycribier <ycribier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/11/22 11:03:50 by ycribier          #+#    #+#             */
-/*   Updated: 2013/11/26 18:45:33 by ycribier         ###   ########.fr       */
+/*   Updated: 2015/01/28 17:59:05 by ycribier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ char	*ft_strchr(char const *str, int c)
 	while (str[i] != '\0')
 	{
 		if (str[i] == c)
-			return ((char *) &str[i]);
+			return ((char *)&str[i]);
 		i++;
 	}
 	if (str[i] == c)
-		return ((char *) &str[i]);
+		return ((char *)&str[i]);
 	else
 		return (NULL);
 }

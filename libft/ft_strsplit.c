@@ -6,13 +6,13 @@
 /*   By: ycribier <ycribier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/11/27 18:53:26 by ycribier          #+#    #+#             */
-/*   Updated: 2013/11/28 21:41:02 by ycribier         ###   ########.fr       */
+/*   Updated: 2013/12/29 20:31:53 by ycribier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include <string.h>
 #include <stdlib.h>
+#include "libft.h"
 
 size_t	ft_wordsize(char const *s, char c)
 {

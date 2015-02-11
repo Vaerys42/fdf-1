@@ -6,17 +6,14 @@
 /*   By: ycribier <ycribier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/11/22 11:12:54 by ycribier          #+#    #+#             */
-/*   Updated: 2013/11/22 11:12:57 by ycribier         ###   ########.fr       */
+/*   Updated: 2015/01/28 17:58:50 by ycribier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <unistd.h>
 #include "libft.h"
 
 void	ft_putstr(char const *s)
 {
-	while (*s)
-	{
-		ft_putchar(*s);
-		s++;
-	}
+	write(1, s, ft_strlen(s));
 }
