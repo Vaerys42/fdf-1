@@ -6,45 +6,65 @@
 #    By: ycribier <ycribier@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2013/12/17 12:03:20 by ycribier          #+#    #+#              #
-#    Updated: 2015/02/11 15:59:10 by ycribier         ###   ########.fr        #
+#    Updated: 2015/02/13 18:48:48 by ycribier         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+CC				=	clang
+FLAGS			=	-g -Wall -Wextra -Werror
 NAME			=	fdf
-NAME_MINILIBX	=	mlx
 LIB				=	libft/libft.a
 LIB_PATH		=	libft/
-INCLUDES		=	./includes
+INCLUDES		=	-I $(LIB_PATH)./includes -I ./includes -I /usr/X11/include
 DIR_LIBS		=	/usr/X11/lib
 LDFLAGS			=	-L$(DIR_LIBS) -lXext -lX11 -lmlx
-FLAGS			=	#-g -Wall -Wextra -Werror
-SRCS			=	main.c								\
-					fdf.c								\
-					color_convert.c						\
-					color_gradient.c					\
-					color_calc.c						\
-					draw_line.c							\
-					vtx_table.c
-OBJS			=	$(SRCS:.c=.o)
+SRCS			=	srcs/main.c								\
+					srcs/parser.c							\
+					srcs/color_convert.c					\
+					srcs/color_gradient.c					\
+					srcs/color_calc.c						\
+					srcs/draw_line.c						\
+					srcs/vtx_table.c
+OBJS			=	$(SRCS:srcs/%.c=objs/%.o)
 
-all: $(NAME)
+# COLORS
+C_NO			=	"\033[00m"
+C_OK			=	"\033[35m"
+C_GOOD			=	"\033[32m"
+C_ERROR			=	"\033[31m"
+C_WARN			=	"\033[33m"
+
+# DBG MESSAGE
+SUCCESS			=	$(C_GOOD)SUCCESS$(C_NO)
+OK				=	$(C_OK)OK$(C_NO)
+
+all: obj $(NAME)
 
 $(NAME): $(LIB) $(OBJS)
-	gcc $(FLAGS) -o $@ $^ $(LDFLAGS) -L $(LIB_PATH) -lft
+	@$(CC) $(FLAGS) -o $@ $^ $(LDFLAGS) -L $(LIB_PATH) -lft
+	@echo "Compiling" [ $(NAME) ] $(SUCCESS)
 
 $(LIB):
-	make -C $(LIB_PATH)
+	@make -C $(LIB_PATH)
 
-%.o: %.c
-	gcc $(FLAGS) -c -o $@ $^ -I $(LIB_PATH)$(INCLUDES) -I $(INCLUDES)
+obj:
+	@mkdir -p objs
+
+objs/%.o: srcs/%.c ./includes/fdf.h
+	@$(CC) $(FLAGS) -c -o $@ $< $(INCLUDES)
+	@echo "Linking" [ $< ] $(OK)
 
 clean:
-	rm -f $(OBJS)
+	@rm -f $(OBJS)
+	@rm -rf objs
+	@echo "Cleaning" [ $(NAME) ] "..." $(OK)
 
 fclean: clean
-	rm -f $(NAME)
-	make -C $(LIB_PATH) fclean
+	@rm -f $(NAME)
+	@make -C $(LIB_PATH) fclean
+	@echo "Delete" [ $(NAME) ] $(OK)
 
 re: fclean all
 
 .PHONY: clean all re fclean
+

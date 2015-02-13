@@ -6,7 +6,7 @@
 /*   By: ycribier <ycribier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/09 17:52:18 by ycribier          #+#    #+#             */
-/*   Updated: 2015/02/13 17:02:45 by ycribier         ###   ########.fr       */
+/*   Updated: 2015/02/13 17:07:11 by ycribier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@
 # include <stdlib.h>
 # include <math.h>
 
-# define PALETTE_SIZE	360
-
 # define COL_BLACK		0x000000
 # define COL_WHITE		0xFFFFFF
 # define COL_RED		0xFF0000
@@ -27,17 +25,6 @@
 # define COL_CYAN		0x00FFFF
 # define COL_YELLOW		0xFFFF00
 # define COL_PURPLE		0xFF00FF
-
-typedef struct	s_col_palette
-{
-	int			*palette;
-	int			col1;
-	int			col2;
-	int			step;
-	int			start;
-	int			range;
-	t_bool		is_visible;
-}				t_col_palette;
 
 typedef struct	s_color
 {

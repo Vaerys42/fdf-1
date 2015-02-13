@@ -6,11 +6,19 @@
 /*   By: ycribier <ycribier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/16 16:22:33 by ycribier          #+#    #+#             */
-/*   Updated: 2015/02/13 17:02:34 by ycribier         ###   ########.fr       */
+/*   Updated: 2015/02/13 17:50:42 by ycribier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+
+void			free_env(t_env *e)
+{
+	free(e->img);
+	free(e->palette);
+	free(e);
+}
 
 static int		expose_hook(t_env *e)
 {
@@ -19,13 +27,16 @@ static int		expose_hook(t_env *e)
 	return (0);
 }
 
-static int		key_hook(int keycode, void *param)
+static int		key_hook(int keycode, t_env *e)
 {
-	(void)param;
 	if (keycode == 65307)
+	{
+		free_env(e);
 		exit(0);
+	}
 	return (0);
 }
+
 
 t_img			*create_new_image(t_env *e, int width, int height)
 {
@@ -67,30 +78,33 @@ static t_env	*init_env(void)
 	if (!(e->img = create_new_image(e, W_WIDTH, W_HEIGHT)))
 		exit(-1);
 	e->max_elev = 1;
-	e->palette = gen_gradient_palette(hex_to_rgb(COL_RED), hex_to_rgb(COL_BLUE), PALETTE_SIZE);
+	e->vtx_tab.n_col = 0;
+	e->vtx_tab.n_line = 0;
+	e->vtx_tab.tab = NULL;
+	e->palette = gen_gradient_palette(hex_to_rgb(COL_MAX), hex_to_rgb(COL_MIN), PALETTE_SIZE);
 	return (e);
 }
 
-int				main(int argc, char **argv)
+int				main(int ac, char *av[])
 {
 	t_env	*e;
 	int		fd;
 
-	if (argc > 1)
+	if (ac > 1)
 	{
-		if ((fd = open(argv[1], O_RDONLY)) == -1)
+		if ((fd = open(av[1], O_RDONLY)) == -1)
 		{
-			perror(argv[1]);
+			perror(av[1]);
 			exit(-1);
 		}
 		e = init_env();
-		fdf(fd, e);
+		parse_fd(fd, e);
 		mlx_expose_hook(e->win, expose_hook, e);
-		mlx_key_hook(e->win, key_hook, NULL);
+		mlx_key_hook(e->win, key_hook, e);
 		mlx_loop(e->mlx);
 		close(fd);
 	}
 	else
-		ft_putendl("usage : ./fdf file1");
+		ft_putendl("usage : ./fdf map.fdf");
 	return (EXIT_SUCCESS);
 }

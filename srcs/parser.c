@@ -1,18 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.c                                              :+:      :+:    :+:   */
+/*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ycribier <ycribier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/18 18:48:12 by ycribier          #+#    #+#             */
-/*   Updated: 2015/02/13 17:02:23 by ycribier         ###   ########.fr       */
+/*   Updated: 2015/02/13 18:46:50 by ycribier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static int		get_ltab_size(char **tab)
+void			display_list(t_list *list)
+{
+	while (list)
+	{
+		printf("%s\n", (char *)(list->content));
+		list = list->next;
+	}
+}
+
+static int		get_tab_size(char **tab)
 {
 	int		size;
 
@@ -41,7 +50,7 @@ void			clean_line(char *line)
 	}
 }
 
-static void		check_list(t_list *list, int *nb_col)
+static void		check_list_and_recover_map_sizes(t_list *list, t_env *e)
 {
 	char	*line;
 	int		line_size;
@@ -50,13 +59,12 @@ static void		check_list(t_list *list, int *nb_col)
 	while (list)
 	{
 		line = (char *)(list->content);
-		clean_line(line);
 		tab = ft_strsplit(line, ' ');
-		line_size = get_ltab_size(tab);
-		if (line_size > *nb_col)
-			*nb_col = line_size;
+		line_size = get_tab_size(tab);
+		e->vtx_tab.n_col = fmax(line_size, e->vtx_tab.n_col);
+		e->vtx_tab.n_line += 1;
 		list = list->next;
-		free(tab);
+		free_tab(&tab);
 	}
 }
 
@@ -76,30 +84,39 @@ static void		delete_list(t_list **alst)
 	}
 }
 
-void			fdf(int fd, t_env *e)
+t_list			*recover_lines(int fd)
 {
-	char	*line;
 	t_list	*list;
 	t_list	*elem;
-	int		nb_col;
-	int		nb_line;
-	int		ret; //6 var
+	char	*line;
+	int		ret;
 
-	line = NULL;
 	list = NULL;
-	nb_line = 0;
-	nb_col = 0;
+	line = NULL;
 	while ((ret = get_next_line(fd, &line)) > 0)
 	{
+		clean_line(line);
 		elem = ft_lstnew(line, (ft_strlen(line) + 1) * sizeof(char));
 		ft_lstpush(&list, elem);
 		if (line)
 			ft_strdel(&line);
-		nb_line++;
 	}
 	if (ret == -1)
 		exit(-1);
-	check_list(list, &nb_col);
-	manage_vtx_tab(e, list, nb_line, nb_col);
+	return (list);
+}
+
+void			parse_fd(int fd, t_env *e)
+{
+	t_list	*list;
+
+	list = recover_lines(fd);
+	if (!list)
+	{
+		ft_putendl("File empty!");
+		exit(-1);
+	}
+	check_list_and_recover_map_sizes(list, e);
+	manage_vtx_tab(list, e);
 	delete_list(&list);
 }
