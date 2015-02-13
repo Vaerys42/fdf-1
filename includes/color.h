@@ -6,7 +6,7 @@
 /*   By: ycribier <ycribier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/09 17:52:18 by ycribier          #+#    #+#             */
-/*   Updated: 2015/02/11 18:22:56 by ycribier         ###   ########.fr       */
+/*   Updated: 2015/02/13 17:02:45 by ycribier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,6 @@
 # define COL_CYAN		0x00FFFF
 # define COL_YELLOW		0xFFFF00
 # define COL_PURPLE		0xFF00FF
-
-int		*g_palette;
 
 typedef struct	s_col_palette
 {

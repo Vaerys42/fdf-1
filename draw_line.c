@@ -6,14 +6,11 @@
 /*   By: ycribier <ycribier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/18 16:24:38 by ycribier          #+#    #+#             */
-/*   Updated: 2015/02/11 18:06:40 by ycribier         ###   ########.fr       */
+/*   Updated: 2015/02/13 17:03:04 by ycribier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-extern int	*g_palette;
-extern int	g_sleep;
 
 int		set_color(double percent, t_vertex *pt1, t_vertex *pt2, t_env *e)
 {
@@ -26,7 +23,7 @@ int		set_color(double percent, t_vertex *pt1, t_vertex *pt2, t_env *e)
 	// if (pt2->z == 10 || pt1->z == 10)
 	// 	printf("percent: %lf, abs: %d, offset: %lf, index: %d\n", percent, _abs, offset, index);
 
-	return (g_palette[index]);
+	return (e->palette[index]);
 }
 
 void	my_pixel_put_to_image(t_img *img, int x, int y, int color)
@@ -132,5 +129,5 @@ void	draw_line(t_vertex *pt1, t_vertex *pt2, t_env *e)
 		else
 			draw_line_2(pt2, pt1, e);
 	}
-	mlx_put_image_to_window(e->mlx, e->win, e->img->id, 0, 0);
+	// mlx_put_image_to_window(e->mlx, e->win, e->img->id, 0, 0);
 }

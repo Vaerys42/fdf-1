@@ -6,7 +6,7 @@
 /*   By: ycribier <ycribier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/18 18:48:12 by ycribier          #+#    #+#             */
-/*   Updated: 2015/02/11 15:56:01 by ycribier         ###   ########.fr       */
+/*   Updated: 2015/02/13 17:02:23 by ycribier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,5 @@ void			fdf(int fd, t_env *e)
 		exit(-1);
 	check_list(list, &nb_col);
 	manage_vtx_tab(e, list, nb_line, nb_col);
-	draw_palette(g_palette, PALETTE_SIZE, e); //
 	delete_list(&list);
 }

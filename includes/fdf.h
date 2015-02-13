@@ -6,7 +6,7 @@
 /*   By: ycribier <ycribier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/17 19:02:51 by ycribier          #+#    #+#             */
-/*   Updated: 2015/02/11 18:22:58 by ycribier         ###   ########.fr       */
+/*   Updated: 2015/02/13 17:02:42 by ycribier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,9 @@ typedef struct	s_env
 	void		*mlx;
 	void		*win;
 	t_img		*img;
+	int			*palette;
 	int			max_elev;
+	int			origin;
 }				t_env;
 
 typedef struct	s_vertex
@@ -62,6 +64,5 @@ void			fdf(int fd, t_env *e);
 t_img			*create_new_image(t_env *e, int width, int height);
 
 void	draw_palette(int *palette, int size, t_env *e);
-
 
 #endif

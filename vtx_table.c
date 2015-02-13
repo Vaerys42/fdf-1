@@ -6,7 +6,7 @@
 /*   By: ycribier <ycribier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/22 14:48:06 by ycribier          #+#    #+#             */
-/*   Updated: 2015/02/11 18:23:05 by ycribier         ###   ########.fr       */
+/*   Updated: 2015/02/13 17:00:17 by ycribier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,5 @@ void
 	e->img = create_new_image(e, W_WIDTH, W_HEIGHT);
 	create_vtx_tab(list, nb_line, nb_col, &vtx_tab, e);
 	convert_to_parallel(nb_line, nb_col, &vtx_tab);
-	printf("max_elev: %d\n", e->max_elev);
 	create_projection(e, nb_line, nb_col, &vtx_tab);
 }
