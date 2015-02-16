@@ -6,17 +6,16 @@
 /*   By: ycribier <ycribier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/22 14:48:06 by ycribier          #+#    #+#             */
-/*   Updated: 2015/02/16 16:07:11 by ycribier         ###   ########.fr       */
+/*   Updated: 2015/02/16 16:33:30 by ycribier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-/*static void
-	create_projection(t_env *e, t_vertex (*vtx_tab)[l][c])
+static void		create_projection(t_env *e)
 {
-	int			i;
-	int			j;
+	size_t		i;
+	size_t		j;
 
 	j = 0;
 	while (j < e->vtx_tab.n_line)
@@ -24,12 +23,12 @@
 		i = 0;
 		while (i < e->vtx_tab.n_col)
 		{
-			if (((*vtx_tab)[j][i]).is_vtx == 1)
+			if (e->vtx_tab.tab[j][i])
 			{
-				if (i < (e->vtx_tab.n_col - 1) && ((*vtx_tab)[j][i + 1]).is_vtx == 1)
-					draw_line(&(*vtx_tab)[j][i], &(*vtx_tab)[j][i + 1], e);
-				if (j < (e->vtx_tab.n_line - 1) && ((*vtx_tab)[j + 1][i]).is_vtx == 1)
-					draw_line(&(*vtx_tab)[j][i], &(*vtx_tab)[j + 1][i], e);
+				if (i < e->vtx_tab.n_col - 1 && e->vtx_tab.tab[j][i + 1])
+					draw_line(e->vtx_tab.tab[j][i], e->vtx_tab.tab[j][i + 1], e);
+				if (j < e->vtx_tab.n_line - 1 && e->vtx_tab.tab[j + 1][i])
+					draw_line(e->vtx_tab.tab[j][i], e->vtx_tab.tab[j + 1][i], e);
 			}
 			i++;
 		}
@@ -37,13 +36,12 @@
 	}
 }
 
-static void
-	convert_to_parallel(t_vertex (*vtx_tab)[l][c])
+static void		convert_to_parallel(t_env *e)
 {
-	int		i;
-	int		j;
-	int		tmp_x;
-	int		tmp_y;
+	size_t		i;
+	size_t		j;
+	size_t		tmp_x;
+	size_t		tmp_y;
 
 	j = 0;
 	while (j < e->vtx_tab.n_line)
@@ -51,21 +49,21 @@ static void
 		i = 0;
 		while (i < e->vtx_tab.n_col)
 		{
-			if (((*vtx_tab)[j][i]).is_vtx == 1)
+			if (e->vtx_tab.tab[j][i])
 			{
-				tmp_x = -2 * ((*vtx_tab)[j][i]).y + 2 * ((*vtx_tab)[j][i]).x;
-				tmp_y = 2 * ((*vtx_tab)[j][i]).y + ((*vtx_tab)[j][i]).x;
-				((*vtx_tab)[j][i]).x = (W_WIDTH - e->vtx_tab.n_line * 20) / 2
+				tmp_x = -2 * e->vtx_tab.tab[j][i]->y + 2 * e->vtx_tab.tab[j][i]->x;
+				tmp_y = 2 * e->vtx_tab.tab[j][i]->y + e->vtx_tab.tab[j][i]->x;
+				e->vtx_tab.tab[j][i]->x = (W_WIDTH - e->vtx_tab.n_line * 20) / 2
 									+ tmp_x * 10;
-				((*vtx_tab)[j][i]).y = (W_HEIGHT - e->vtx_tab.n_col * 10) / 2
-									+ tmp_y * 10 - 2 * ((*vtx_tab)[j][i]).z;
+				e->vtx_tab.tab[j][i]->y = (W_HEIGHT - e->vtx_tab.n_col * 10) / 2
+									+ tmp_y * 10 - 2 * e->vtx_tab.tab[j][i]->z;
 			}
 			i++;
 		}
 		j++;
 	}
 }
-*/
+
 void			display_vtx_tab(t_env *e)
 {
 	size_t	i;
@@ -152,6 +150,6 @@ void			manage_vtx_tab(t_list *list, t_env *e)
 		return ;
 	fill_vtx_tab(list, e);
 	// display_vtx_tab(e);
-	// convert_to_parallel(&vtx_tab);
-	// create_projection(e, &vtx_tab);
+	convert_to_parallel(e);
+	create_projection(e);
 }
