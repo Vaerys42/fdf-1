@@ -6,7 +6,7 @@
 /*   By: ycribier <ycribier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/17 19:02:51 by ycribier          #+#    #+#             */
-/*   Updated: 2015/02/13 19:21:48 by ycribier         ###   ########.fr       */
+/*   Updated: 2015/02/16 15:38:15 by ycribier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ typedef struct	s_vtx_tab
 {
 	size_t		n_col;
 	size_t		n_line;
-	t_vertex	**tab;
+	t_vertex	***tab;
 }				t_vtx_tab;
 
 typedef struct	s_env

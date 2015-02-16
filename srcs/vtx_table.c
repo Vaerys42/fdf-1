@@ -6,7 +6,7 @@
 /*   By: ycribier <ycribier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/22 14:48:06 by ycribier          #+#    #+#             */
-/*   Updated: 2015/02/13 19:42:12 by ycribier         ###   ########.fr       */
+/*   Updated: 2015/02/16 16:07:11 by ycribier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,15 +66,38 @@ static void
 	}
 }
 */
-// static void
-// 	fill_empty_vtx(int i, int j, int c, t_vertex (*vtx_tab)[][c])
-// {
-// 	while (i < c)
-// 	{
-// 		((*vtx_tab)[j][i]).is_vtx = 0;
-// 		i++;
-// 	}
-// }
+void			display_vtx_tab(t_env *e)
+{
+	size_t	i;
+	size_t	j;
+
+	j = 0;
+	while (j < e->vtx_tab.n_line)
+	{
+		i = 0;
+		while (i < e->vtx_tab.n_col)
+		{
+			if (e->vtx_tab.tab[j][i])
+				printf("%d ", e->vtx_tab.tab[j][i]->z);
+			i++;
+		}
+		printf("\n");
+		j++;
+	}
+}
+
+static t_vertex	*create_new_vtx(int x, int y, int z)
+{
+	t_vertex	*new_vtx;
+
+	if ((new_vtx = (t_vertex *)malloc(sizeof(t_vertex))))
+	{
+		new_vtx->x = x;
+		new_vtx->y = y;
+		new_vtx->z = z;
+	}
+	return (new_vtx);
+}
 
 static void		fill_vtx_tab(t_list *list, t_env *e)
 {
@@ -89,16 +112,14 @@ static void		fill_vtx_tab(t_list *list, t_env *e)
 		tmp = ft_strsplit((char *)(list->content), ' ');
 		while (i < e->vtx_tab.n_col)
 		{
+			e->vtx_tab.tab[j][i] = NULL;
 			if (tmp[i])
 			{
-				e->vtx_tab.tab[j][i] = (t_vertex *)malloc(sizeof(t_vertex));
-				e->vtx_tab.tab[j][i]->x = i;
-				e->vtx_tab.tab[j][i]->y = j;
-				e->vtx_tab.tab[j][i]->z = ft_atoi(tmp[i]);
-				e->max_elev = fmax(e->max_elev, ft_abs(e->vtx_tab.tab[j][i]->z));
+				e->vtx_tab.tab[j][i] = create_new_vtx(i, j, ft_atoi(tmp[i]));
+				e->max_elev = fmax(e->max_elev, ft_abs(ft_atoi(tmp[i])));
 			}
 			else
-				e->vtx_tab.tab[j][i] = NULL;
+				break ;
 			i++;
 		}
 		j++;
@@ -106,30 +127,31 @@ static void		fill_vtx_tab(t_list *list, t_env *e)
 	}
 }
 
-t_vertex	**create_vtx_tab(size_t n_line, size_t n_col)
+t_vertex		***create_vtx_tab(size_t n_line, size_t n_col)
 {
-	t_vertex	**tab;
-	size_t		i;
+	t_vertex	***tab;
+	size_t		j;
 
 	if ((tab = malloc(sizeof(t_vertex *) * n_line)))
 	{
-		i = 0;
-		while (i < n_line)
+		j = 0;
+		while (j < n_line)
 		{
-			if (!(tab[i] = (t_vertex *)malloc(sizeof(t_vertex *) * n_col)))
+			if (!(tab[j] = malloc(sizeof(t_vertex *) * n_col)))
 				return (NULL);
-			i++;
+			j++;
 		}
 	}
 	return (tab);
 }
 
-void		manage_vtx_tab(t_list *list, t_env *e)
+void			manage_vtx_tab(t_list *list, t_env *e)
 {
 	e->vtx_tab.tab = create_vtx_tab(e->vtx_tab.n_line, e->vtx_tab.n_col);
 	if (!e->vtx_tab.tab)
 		return ;
 	fill_vtx_tab(list, e);
+	// display_vtx_tab(e);
 	// convert_to_parallel(&vtx_tab);
 	// create_projection(e, &vtx_tab);
 }

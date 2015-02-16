@@ -6,7 +6,7 @@
 /*   By: ycribier <ycribier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/18 18:48:12 by ycribier          #+#    #+#             */
-/*   Updated: 2015/02/13 18:46:50 by ycribier         ###   ########.fr       */
+/*   Updated: 2015/02/16 16:01:24 by ycribier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ void			parse_fd(int fd, t_env *e)
 		exit(-1);
 	}
 	check_list_and_recover_map_sizes(list, e);
+	// display_list(list);
 	manage_vtx_tab(list, e);
 	delete_list(&list);
 }
