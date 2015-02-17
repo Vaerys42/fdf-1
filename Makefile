@@ -6,12 +6,12 @@
 #    By: ycribier <ycribier@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2013/12/17 12:03:20 by ycribier          #+#    #+#              #
-#    Updated: 2015/02/13 18:48:48 by ycribier         ###   ########.fr        #
+#    Updated: 2015/02/17 12:53:34 by ycribier         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC				=	clang
-FLAGS			=	-g -Wall -Wextra -Werror
+FLAGS			=	-g #-Wall -Wextra -Werror
 NAME			=	fdf
 LIB				=	libft/libft.a
 LIB_PATH		=	libft/

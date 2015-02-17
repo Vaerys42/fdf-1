@@ -6,7 +6,7 @@
 /*   By: ycribier <ycribier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/22 14:48:06 by ycribier          #+#    #+#             */
-/*   Updated: 2015/02/16 16:33:30 by ycribier         ###   ########.fr       */
+/*   Updated: 2015/02/17 13:07:47 by ycribier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ static void		convert_to_parallel(t_env *e)
 	size_t		j;
 	size_t		tmp_x;
 	size_t		tmp_y;
+	t_vertex	*vtx;
 
 	j = 0;
 	while (j < e->vtx_tab.n_line)
@@ -49,14 +50,13 @@ static void		convert_to_parallel(t_env *e)
 		i = 0;
 		while (i < e->vtx_tab.n_col)
 		{
-			if (e->vtx_tab.tab[j][i])
+			vtx = e->vtx_tab.tab[j][i];
+			if (vtx)
 			{
-				tmp_x = -2 * e->vtx_tab.tab[j][i]->y + 2 * e->vtx_tab.tab[j][i]->x;
-				tmp_y = 2 * e->vtx_tab.tab[j][i]->y + e->vtx_tab.tab[j][i]->x;
-				e->vtx_tab.tab[j][i]->x = (W_WIDTH - e->vtx_tab.n_line * 20) / 2
-									+ tmp_x * 10;
-				e->vtx_tab.tab[j][i]->y = (W_HEIGHT - e->vtx_tab.n_col * 10) / 2
-									+ tmp_y * 10 - 2 * e->vtx_tab.tab[j][i]->z;
+				tmp_x = -2 * vtx->y + 2 * vtx->x;
+				tmp_y = 2 * vtx->y + vtx->x;
+				vtx->x = (W_WIDTH - e->vtx_tab.n_line * 20) / 2 + tmp_x * 10;
+				vtx->y = (W_HEIGHT - e->vtx_tab.n_col * 10) / 2 + tmp_y * 10 - 2 * vtx->z;
 			}
 			i++;
 		}
@@ -123,6 +123,7 @@ static void		fill_vtx_tab(t_list *list, t_env *e)
 		j++;
 		list = list->next;
 	}
+	printf("max_elev: %d\n", e->max_elev);
 }
 
 t_vertex		***create_vtx_tab(size_t n_line, size_t n_col)
@@ -130,6 +131,7 @@ t_vertex		***create_vtx_tab(size_t n_line, size_t n_col)
 	t_vertex	***tab;
 	size_t		j;
 
+	printf("l: %zu, :c %zu\n", n_line, n_col);
 	if ((tab = malloc(sizeof(t_vertex *) * n_line)))
 	{
 		j = 0;
@@ -137,6 +139,7 @@ t_vertex		***create_vtx_tab(size_t n_line, size_t n_col)
 		{
 			if (!(tab[j] = malloc(sizeof(t_vertex *) * n_col)))
 				return (NULL);
+			ft_bzero(tab[j], sizeof(t_vertex *) * n_col);
 			j++;
 		}
 	}
@@ -149,7 +152,7 @@ void			manage_vtx_tab(t_list *list, t_env *e)
 	if (!e->vtx_tab.tab)
 		return ;
 	fill_vtx_tab(list, e);
-	// display_vtx_tab(e);
+	display_vtx_tab(e);
 	convert_to_parallel(e);
 	create_projection(e);
 }
