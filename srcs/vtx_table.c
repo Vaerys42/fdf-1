@@ -6,7 +6,7 @@
 /*   By: ycribier <ycribier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/22 14:48:06 by ycribier          #+#    #+#             */
-/*   Updated: 2015/02/17 13:07:47 by ycribier         ###   ########.fr       */
+/*   Updated: 2015/02/17 13:22:22 by ycribier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,28 @@ static t_vertex	*create_new_vtx(int x, int y, int z)
 	return (new_vtx);
 }
 
+int				get_max_elev(t_env *e)
+{
+	size_t		i;
+	size_t		j;
+	int			max_elev;
+
+	max_elev = 1;
+	j = 0;
+	while (j < e->vtx_tab.n_line)
+	{
+		i = 0;
+		while (i < e->vtx_tab.n_col)
+		{
+			if (e->vtx_tab.tab[j][i])
+				max_elev = fmax(max_elev, e->vtx_tab.tab[j][i]->z);
+			i++;
+		}
+		j++;
+	}
+	return (max_elev);
+}
+
 static void		fill_vtx_tab(t_list *list, t_env *e)
 {
 	char		**tmp;
@@ -108,22 +130,15 @@ static void		fill_vtx_tab(t_list *list, t_env *e)
 	{
 		i = 0;
 		tmp = ft_strsplit((char *)(list->content), ' ');
-		while (i < e->vtx_tab.n_col)
+		while (tmp[i] && i < e->vtx_tab.n_col)
 		{
-			e->vtx_tab.tab[j][i] = NULL;
 			if (tmp[i])
-			{
 				e->vtx_tab.tab[j][i] = create_new_vtx(i, j, ft_atoi(tmp[i]));
-				e->max_elev = fmax(e->max_elev, ft_abs(ft_atoi(tmp[i])));
-			}
-			else
-				break ;
 			i++;
 		}
 		j++;
 		list = list->next;
 	}
-	printf("max_elev: %d\n", e->max_elev);
 }
 
 t_vertex		***create_vtx_tab(size_t n_line, size_t n_col)
@@ -152,6 +167,7 @@ void			manage_vtx_tab(t_list *list, t_env *e)
 	if (!e->vtx_tab.tab)
 		return ;
 	fill_vtx_tab(list, e);
+	e->max_elev = get_max_elev(e);
 	display_vtx_tab(e);
 	convert_to_parallel(e);
 	create_projection(e);
