@@ -6,7 +6,7 @@
 /*   By: ycribier <ycribier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/18 16:24:38 by ycribier          #+#    #+#             */
-/*   Updated: 2015/02/13 17:03:04 by ycribier         ###   ########.fr       */
+/*   Updated: 2015/02/17 20:12:44 by ycribier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,6 @@ int		set_color(double percent, t_vertex *pt1, t_vertex *pt2, t_env *e)
 	int _abs = pt2->z - pt1->z;
 	offset = percent * _abs;
 	index = (int)((PALETTE_SIZE / 2) - (((double)pt1->z + offset) / (e->max_elev + 1)) * PALETTE_SIZE / 2);
-	// if (pt2->z == 10 || pt1->z == 10)
-	// 	printf("percent: %lf, abs: %d, offset: %lf, index: %d\n", percent, _abs, offset, index);
-
 	return (e->palette[index]);
 }
 
@@ -74,7 +71,6 @@ void	draw_line_1(t_vertex *pt1, t_vertex *pt2, t_env *e)
 	int	y;
 	int	color;
 
-	// printf("d_line1: pt1(%d, %d, %d), pt2(%d, %d, %d)\n", pt1->x, pt1->y, pt1->z, pt2->x, pt2->y, pt2->z);
 	x = pt1->x;
 	while (x <= pt2->x)
 	{
@@ -91,7 +87,6 @@ void	draw_line_2(t_vertex *pt1, t_vertex *pt2, t_env *e)
 	int	y;
 	int	color;
 
-	// printf("d_line2: pt1(%d, %d, %d), pt2(%d, %d, %d)\n", pt1->x, pt1->y, pt1->z, pt2->x, pt2->y, pt2->z);
 	y = pt1->y;
 	if (pt1->x == pt2->x && pt1->y == pt2->y)
 	{
@@ -129,5 +124,4 @@ void	draw_line(t_vertex *pt1, t_vertex *pt2, t_env *e)
 		else
 			draw_line_2(pt2, pt1, e);
 	}
-	// mlx_put_image_to_window(e->mlx, e->win, e->img->id, 0, 0);
 }

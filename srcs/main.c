@@ -6,7 +6,7 @@
 /*   By: ycribier <ycribier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/16 16:22:33 by ycribier          #+#    #+#             */
-/*   Updated: 2015/02/13 17:50:42 by ycribier         ###   ########.fr       */
+/*   Updated: 2015/02/17 20:09:44 by ycribier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,9 @@
 void			free_env(t_env *e)
 {
 	free(e->img);
+	free(e->keys);
 	free(e->palette);
 	free(e);
-}
-
-static int		expose_hook(t_env *e)
-{
-	draw_palette(e->palette, PALETTE_SIZE, e);
-	mlx_put_image_to_window(e->mlx, e->win, e->img->id, 0, 0);
-	return (0);
 }
 
 static int		key_hook(int keycode, t_env *e)
@@ -77,10 +71,14 @@ static t_env	*init_env(void)
 	}
 	if (!(e->img = create_new_image(e, W_WIDTH, W_HEIGHT)))
 		exit(-1);
+	if (!(e->keys = init_keys()))
+		exit(-1);
 	e->max_elev = 1;
 	e->vtx_tab.n_col = 0;
 	e->vtx_tab.n_line = 0;
 	e->vtx_tab.tab = NULL;
+	e->offset_x = 0;
+	e->offset_y = 0;
 	e->palette = gen_gradient_palette(hex_to_rgb(COL_MAX), hex_to_rgb(COL_MIN), PALETTE_SIZE);
 	return (e);
 }
@@ -99,10 +97,8 @@ int				main(int ac, char *av[])
 		}
 		e = init_env();
 		parse_fd(fd, e);
-		mlx_expose_hook(e->win, expose_hook, e);
-		mlx_key_hook(e->win, key_hook, e);
-		mlx_loop(e->mlx);
 		close(fd);
+		mlx_handler(e);
 	}
 	else
 		ft_putendl("usage : ./fdf map.fdf");
