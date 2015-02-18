@@ -6,7 +6,7 @@
 /*   By: ycribier <ycribier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/18 16:24:38 by ycribier          #+#    #+#             */
-/*   Updated: 2015/02/18 11:59:50 by ycribier         ###   ########.fr       */
+/*   Updated: 2015/02/18 12:14:32 by ycribier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int		set_col(double p, t_vertex *pt1, t_vertex *pt2, t_env *e)
 	double	offset;
 	int		index;
 
-	offset = p * pt2->z - pt1->z;
+	offset = p * (pt2->z - pt1->z);
 	index = (int)((PALETTE_SIZE / 2)
 		- (((double)pt1->z + offset) / (e->max_elev + 1)) * PALETTE_SIZE / 2);
 	return (e->palette[index]);
