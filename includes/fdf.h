@@ -6,7 +6,7 @@
 /*   By: ycribier <ycribier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/17 19:02:51 by ycribier          #+#    #+#             */
-/*   Updated: 2015/02/18 12:04:36 by ycribier         ###   ########.fr       */
+/*   Updated: 2015/02/18 18:46:17 by ycribier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@
 # include "color.h"
 # include "keys.h"
 
-# define W_WIDTH		1000
-# define W_HEIGHT		1000
+# define W_WIDTH		600
+# define W_HEIGHT		600
 
-# define PALETTE_SIZE	360
+# define PALETTE_SIZE	6
 
 # define COL_MAX		0xFF0000
 # define COL_MIN		0x0000FF

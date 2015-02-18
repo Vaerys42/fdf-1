@@ -6,7 +6,7 @@
 /*   By: ycribier <ycribier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/22 14:48:06 by ycribier          #+#    #+#             */
-/*   Updated: 2015/02/18 11:55:58 by ycribier         ###   ########.fr       */
+/*   Updated: 2015/02/18 20:28:54 by ycribier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ static void			fill_vtx_tab(t_list *list, t_env *e)
 		}
 		j++;
 		list = list->next;
+		free_tab(&tmp);
 	}
 }
 
