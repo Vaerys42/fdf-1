@@ -6,23 +6,11 @@
 /*   By: ycribier <ycribier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/09 17:52:18 by ycribier          #+#    #+#             */
-/*   Updated: 2015/02/18 10:33:16 by ycribier         ###   ########.fr       */
+/*   Updated: 2015/02/18 11:56:15 by ycribier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-/*int				mouse_hook(int button, int x, int y, t_env *e)
-{
-	(void)e;
-	return (0);
-}
-
-int				pointer_motion_hook(int x, int y, t_env *e)
-{
-	(void)e;
-	return (0);
-}*/
 
 int				expose_hook(t_env *e)
 {

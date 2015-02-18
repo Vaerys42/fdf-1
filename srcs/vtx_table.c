@@ -6,31 +6,11 @@
 /*   By: ycribier <ycribier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/22 14:48:06 by ycribier          #+#    #+#             */
-/*   Updated: 2015/02/18 10:55:16 by ycribier         ###   ########.fr       */
+/*   Updated: 2015/02/18 11:55:58 by ycribier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-/*void				display_vtx_tab(t_vertex ***tab, t_env *e)
-{
-	size_t	i;
-	size_t	j;
-
-	j = 0;
-	while (j < e->vtx_tab.n_line)
-	{
-		i = 0;
-		while (i < e->vtx_tab.n_col)
-		{
-			if (tab[j][i])
-				printf("%d ", tab[j][i]->z);
-			i++;
-		}
-		printf("\n");
-		j++;
-	}
-}*/
 
 static t_vertex		*create_new_vtx(int x, int y, int z)
 {
@@ -115,7 +95,5 @@ void				manage_vtx_tab(t_list *list, t_env *e)
 		return ;
 	fill_vtx_tab(list, e);
 	e->max_elev = get_max_elev(e);
-	// display_vtx_tab(e->vtx_proj.tab, e);
 	convert_to_parallel(e);
-	// create_projection(e);
 }

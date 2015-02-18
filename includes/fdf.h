@@ -6,7 +6,7 @@
 /*   By: ycribier <ycribier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/17 19:02:51 by ycribier          #+#    #+#             */
-/*   Updated: 2015/02/18 11:53:39 by ycribier         ###   ########.fr       */
+/*   Updated: 2015/02/18 12:04:36 by ycribier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@
 
 enum
 {
-	FLG_DISPLAY_COLOR	= 1 << 0,
-	FLG_RECOMPUTE		= 1 << 1,
-	FLG_MOVING			= 1 << 2,
+	FLG_DISPLAY_COLOR = 1 << 0,
+	FLG_RECOMPUTE = 1 << 1,
+	FLG_MOVING = 1 << 2,
 };
 
 typedef struct	s_img
@@ -136,12 +136,11 @@ void			my_pixel_put_to_image(t_img *img, int x, int y, int color);
 /*
 **		hook.c
 */
-// int				mouse_hook(int button, int x, int y, t_env *e);
-// int				pointer_motion_hook(int x, int y, t_env *e);
 int				expose_hook(t_env *e);
 
 /*
 **		tools.c
 */
 int				get_tab_size(char **tab);
+
 #endif

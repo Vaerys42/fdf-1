@@ -6,19 +6,18 @@
 /*   By: ycribier <ycribier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/18 16:24:38 by ycribier          #+#    #+#             */
-/*   Updated: 2015/02/18 11:52:37 by ycribier         ###   ########.fr       */
+/*   Updated: 2015/02/18 11:59:50 by ycribier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static int		set_color(double percent, t_vertex *pt1, t_vertex *pt2, t_env *e)
+static int		set_col(double p, t_vertex *pt1, t_vertex *pt2, t_env *e)
 {
 	double	offset;
 	int		index;
 
-	int _abs = pt2->z - pt1->z;
-	offset = percent * _abs;
+	offset = p * pt2->z - pt1->z;
 	index = (int)((PALETTE_SIZE / 2)
 		- (((double)pt1->z + offset) / (e->max_elev + 1)) * PALETTE_SIZE / 2);
 	return (e->palette[index]);
@@ -51,7 +50,7 @@ static void		draw_line_1(t_vertex *pt1, t_vertex *pt2, t_env *e)
 	x = pt1->x;
 	while (x <= pt2->x)
 	{
-		color = set_color((double)(x - pt1->x) / (pt2->x - pt1->x), pt1, pt2, e);
+		color = set_col((double)(x - pt1->x) / (pt2->x - pt1->x), pt1, pt2, e);
 		y = pt1->y + ((pt2->y - pt1->y) * (x - pt1->x)) / (pt2->x - pt1->x);
 		my_pixel_put_to_image(e->img, x, y, color);
 		x++;
@@ -67,13 +66,13 @@ static void		draw_line_2(t_vertex *pt1, t_vertex *pt2, t_env *e)
 	y = pt1->y;
 	if (pt1->x == pt2->x && pt1->y == pt2->y)
 	{
-		color = set_color(0, pt1, pt2, e);
+		color = set_col(0, pt1, pt2, e);
 		my_pixel_put_to_image(e->img, pt1->x, pt1->y, color);
 		return ;
 	}
 	while (y <= pt2->y)
 	{
-		color = set_color((double)(y - pt1->y) / (pt2->y - pt1->y), pt1, pt2, e);
+		color = set_col((double)(y - pt1->y) / (pt2->y - pt1->y), pt1, pt2, e);
 		x = pt1->x + ((pt2->x - pt1->x) * (y - pt1->y)) / (pt2->y - pt1->y);
 		my_pixel_put_to_image(e->img, x, y, color);
 		y++;

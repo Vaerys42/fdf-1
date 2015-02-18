@@ -6,20 +6,11 @@
 /*   By: ycribier <ycribier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/18 18:48:12 by ycribier          #+#    #+#             */
-/*   Updated: 2015/02/18 10:40:09 by ycribier         ###   ########.fr       */
+/*   Updated: 2015/02/18 11:56:32 by ycribier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-// void			display_list(t_list *list)
-// {
-// 	while (list)
-// 	{
-// 		printf("%s\n", (char *)(list->content));
-// 		list = list->next;
-// 	}
-// }
 
 static void		clean_line(char *line)
 {
@@ -101,7 +92,6 @@ void			parse_fd(int fd, t_env *e)
 		exit(-1);
 	}
 	check_list_and_recover_map_sizes(list, e);
-	// display_list(list);
 	manage_vtx_tab(list, e);
 	delete_list(&list);
 }
