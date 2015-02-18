@@ -6,38 +6,22 @@
 /*   By: ycribier <ycribier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/18 18:48:12 by ycribier          #+#    #+#             */
-/*   Updated: 2015/02/16 16:01:24 by ycribier         ###   ########.fr       */
+/*   Updated: 2015/02/18 10:40:09 by ycribier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void			display_list(t_list *list)
-{
-	while (list)
-	{
-		printf("%s\n", (char *)(list->content));
-		list = list->next;
-	}
-}
+// void			display_list(t_list *list)
+// {
+// 	while (list)
+// 	{
+// 		printf("%s\n", (char *)(list->content));
+// 		list = list->next;
+// 	}
+// }
 
-static int		get_tab_size(char **tab)
-{
-	int		size;
-
-	size = 0;
-	if (tab)
-	{
-		while (*tab)
-		{
-			size++;
-			tab++;
-		}
-	}
-	return (size);
-}
-
-void			clean_line(char *line)
+static void		clean_line(char *line)
 {
 	if (line)
 	{
@@ -84,7 +68,7 @@ static void		delete_list(t_list **alst)
 	}
 }
 
-t_list			*recover_lines(int fd)
+static t_list	*recover_lines(int fd)
 {
 	t_list	*list;
 	t_list	*elem;

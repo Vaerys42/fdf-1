@@ -6,12 +6,12 @@
 #    By: ycribier <ycribier@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2013/12/17 12:03:20 by ycribier          #+#    #+#              #
-#    Updated: 2015/02/17 20:12:14 by ycribier         ###   ########.fr        #
+#    Updated: 2015/02/18 10:38:45 by ycribier         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC				=	gcc
-FLAGS			=	-g #-Wall -Wextra -Werror
+FLAGS			=	-g -Wall -Wextra -Werror
 NAME			=	fdf
 LIB				=	libft/libft.a
 LIB_PATH		=	libft/
@@ -25,6 +25,10 @@ SRCS			=	srcs/main.c								\
 					srcs/color_calc.c						\
 					srcs/draw_line.c						\
 					srcs/mlx_handler.c						\
+					srcs/my_pixel_put_to_image.c			\
+					srcs/env.c								\
+					srcs/img.c								\
+					srcs/tools.c							\
 					srcs/hook.c								\
 					srcs/keys.c								\
 					srcs/vtx_table.c

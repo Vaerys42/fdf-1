@@ -6,48 +6,25 @@
 /*   By: ycribier <ycribier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/18 16:24:38 by ycribier          #+#    #+#             */
-/*   Updated: 2015/02/17 20:12:44 by ycribier         ###   ########.fr       */
+/*   Updated: 2015/02/18 10:42:30 by ycribier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int		set_color(double percent, t_vertex *pt1, t_vertex *pt2, t_env *e)
+static int		set_color(double percent, t_vertex *pt1, t_vertex *pt2, t_env *e)
 {
 	double	offset;
 	int		index;
 
 	int _abs = pt2->z - pt1->z;
 	offset = percent * _abs;
-	index = (int)((PALETTE_SIZE / 2) - (((double)pt1->z + offset) / (e->max_elev + 1)) * PALETTE_SIZE / 2);
+	index = (int)((PALETTE_SIZE / 2)
+		- (((double)pt1->z + offset) / (e->max_elev + 1)) * PALETTE_SIZE / 2);
 	return (e->palette[index]);
 }
 
-void	my_pixel_put_to_image(t_img *img, int x, int y, int color)
-{
-	int				i;
-	int				mask;
-	char			tmp_clr;
-	int				offset;
-
-	i = 0;
-	if (x >= 0 && x < img->width && y >= 0 && y < img->height)
-	{
-		while (i < (img->bpp / 8))
-		{
-			if (img->endian == 1)
-				offset = img->bpp - 8 * (i + 1);
-			else
-				offset = 8 * i;
-			mask = 0xFF << offset;
-			tmp_clr = (color & mask) >> offset;
-			img->addr[y * (img->lsize) + x * (img->bpp / 8) + i] = tmp_clr;
-			i++;
-		}
-	}
-}
-
-void	draw_palette(int *palette, int size, t_env *e)
+void			draw_palette(int *palette, int size, t_env *e)
 {
 	int	x;
 	int	y;
@@ -65,7 +42,7 @@ void	draw_palette(int *palette, int size, t_env *e)
 	}
 }
 
-void	draw_line_1(t_vertex *pt1, t_vertex *pt2, t_env *e)
+static void		draw_line_1(t_vertex *pt1, t_vertex *pt2, t_env *e)
 {
 	int	x;
 	int	y;
@@ -81,7 +58,7 @@ void	draw_line_1(t_vertex *pt1, t_vertex *pt2, t_env *e)
 	}
 }
 
-void	draw_line_2(t_vertex *pt1, t_vertex *pt2, t_env *e)
+static void		draw_line_2(t_vertex *pt1, t_vertex *pt2, t_env *e)
 {
 	int	x;
 	int	y;
@@ -103,7 +80,7 @@ void	draw_line_2(t_vertex *pt1, t_vertex *pt2, t_env *e)
 	}
 }
 
-void	draw_line(t_vertex *pt1, t_vertex *pt2, t_env *e)
+void			draw_line(t_vertex *pt1, t_vertex *pt2, t_env *e)
 {
 	int		delta_x;
 	int		delta_y;
