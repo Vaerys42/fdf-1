@@ -6,7 +6,7 @@
 /*   By: ycribier <ycribier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/09 17:52:18 by ycribier          #+#    #+#             */
-/*   Updated: 2015/02/18 10:34:41 by ycribier         ###   ########.fr       */
+/*   Updated: 2015/02/18 11:42:18 by ycribier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,20 @@
 static int	loop_hook(t_env *e)
 {
 	manage_keys(e);
-	mlx_destroy_image(e->mlx, e->img->id);
-	if (!(e->img->id = mlx_new_image(e->mlx, W_WIDTH, W_HEIGHT)))
-		exit(-1);
-	// free(e->img);
-	// e->img = create_new_image(e, W_WIDTH, W_HEIGHT);
-	// clear_img(e);
-	create_projection(e);
-	draw_palette(e->palette, PALETTE_SIZE, e);
+	if (e->flags & FLG_RECOMPUTE)
+	{
+		recompute(e);
+		mlx_destroy_image(e->mlx, e->img->id);
+		if (!(e->img->id = mlx_new_image(e->mlx, W_WIDTH, W_HEIGHT)))
+			exit(-1);
+		create_projection(e);
+		e->flags &= ~(FLG_RECOMPUTE);
+		e->offset_x = 0;
+		e->offset_y = 0;
+	}
+	if (e->flags & FLG_DISPLAY_COLOR)
+		draw_palette(e->palette, PALETTE_SIZE, e);
 	mlx_put_image_to_window(e->mlx, e->win, e->img->id, 0, 0);
-	e->offset_x = 0;
-	e->offset_y = 0;
 	return (0);
 }
 

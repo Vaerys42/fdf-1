@@ -6,7 +6,7 @@
 #    By: ycribier <ycribier@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2013/12/17 12:03:20 by ycribier          #+#    #+#              #
-#    Updated: 2015/02/18 10:38:45 by ycribier         ###   ########.fr        #
+#    Updated: 2015/02/18 10:51:44 by ycribier         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ SRCS			=	srcs/main.c								\
 					srcs/color_calc.c						\
 					srcs/draw_line.c						\
 					srcs/mlx_handler.c						\
+					srcs/projection.c						\
 					srcs/my_pixel_put_to_image.c			\
 					srcs/env.c								\
 					srcs/img.c								\

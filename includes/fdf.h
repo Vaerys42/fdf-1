@@ -6,18 +6,12 @@
 /*   By: ycribier <ycribier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/17 19:02:51 by ycribier          #+#    #+#             */
-/*   Updated: 2015/02/18 10:43:37 by ycribier         ###   ########.fr       */
+/*   Updated: 2015/02/18 11:53:39 by ycribier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
-
-# define W_WIDTH		1000
-# define W_HEIGHT		1000
-
-# define COL_MAX		0xFF0000
-# define COL_MIN		0x0000FF
 
 # include "libft.h"
 # include <mlx.h>
@@ -36,7 +30,22 @@
 # include "color.h"
 # include "keys.h"
 
+# define W_WIDTH		1000
+# define W_HEIGHT		1000
+
+# define PALETTE_SIZE	360
+
+# define COL_MAX		0xFF0000
+# define COL_MIN		0x0000FF
+
 # define MOVE_STEP		1
+
+enum
+{
+	FLG_DISPLAY_COLOR	= 1 << 0,
+	FLG_RECOMPUTE		= 1 << 1,
+	FLG_MOVING			= 1 << 2,
+};
 
 typedef struct	s_img
 {
@@ -75,24 +84,15 @@ typedef struct	s_env
 	t_vtx_tab	vtx_proj;
 	int			offset_x;
 	int			offset_y;
+	char		flags;
 }				t_env;
-
-
-void			manage_vtx_tab(t_list *list, t_env *e);
-void			draw_palette(int *palette, int size, t_env *e);
-void			create_projection(t_env *e);
-
-
-/*
-**		draw_line.c
-*/
-void			draw_line(t_vertex *pt1, t_vertex *pt2, t_env *e);
 
 /*
 **		env.c
 */
-t_env			*init_env(void);
 void			free_env(t_env *e);
+void			set_default_params(t_env *e);
+t_env			*init_env(void);
 
 /*
 **		parser.c
@@ -103,6 +103,24 @@ void			parse_fd(int fd, t_env *e);
 **		mlx_handler.c
 */
 void			mlx_handler(t_env *e);
+
+/*
+**		vtx_tab.c
+*/
+void			manage_vtx_tab(t_list *list, t_env *e);
+
+/*
+**		projection.c
+*/
+void			recompute(t_env *e);
+void			create_projection(t_env *e);
+void			convert_to_parallel(t_env *e);
+
+/*
+**		draw_line.c
+*/
+void			draw_palette(int *palette, int size, t_env *e);
+void			draw_line(t_vertex *pt1, t_vertex *pt2, t_env *e);
 
 /*
 **		img.c
