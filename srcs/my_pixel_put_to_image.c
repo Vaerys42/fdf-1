@@ -6,7 +6,7 @@
 /*   By: ycribier <ycribier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/18 10:27:00 by ycribier          #+#    #+#             */
-/*   Updated: 2015/02/18 10:29:03 by ycribier         ###   ########.fr       */
+/*   Updated: 2015/02/19 10:48:21 by ycribier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,13 @@ void	my_pixel_put_to_image(t_img *img, int x, int y, int color)
 			img->addr[y * (img->lsize) + x * (img->bpp / 8) + i] = tmp_color;
 			i++;
 		}
+	}
+}
+
+void	my_pixel_put_to_image_osx(t_img *img, int x, int y, int color)
+{
+	if (x >= 0 && x < img->width && y >= 0 && y < img->height)
+	{
+		ft_memcpy(&img->addr[y * (img->lsize) + x * 4], &color, sizeof(int));
 	}
 }

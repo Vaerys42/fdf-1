@@ -6,7 +6,7 @@
 /*   By: ycribier <ycribier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/17 19:02:51 by ycribier          #+#    #+#             */
-/*   Updated: 2015/02/18 18:46:17 by ycribier         ###   ########.fr       */
+/*   Updated: 2015/02/19 10:42:37 by ycribier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,7 @@ t_img			*create_new_image(t_env *e, int width, int height);
 **		my_pixel_put_to_image.c
 */
 void			my_pixel_put_to_image(t_img *img, int x, int y, int color);
+void			my_pixel_put_to_image_osx(t_img *img, int x, int y, int color);
 
 /*
 **		hook.c
